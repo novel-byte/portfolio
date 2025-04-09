@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #222;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
+        
+        .logo {
+            max-width: 300px;
+            margin-bottom: 2rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(245, 245, 245, 0.9);
+            padding: 1rem 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid #ddd;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            margin: 0 1.5rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #222;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #222;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #222;
+            color: #f5f5f5;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 2.5rem;
+        }
+        
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            background-color: #eee;
+            padding: 0.3rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-category {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .skill-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+        }
+        
+        #about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .eye-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .eye-svg {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .about-content {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .about-content h2 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo {
+                max-width: 250px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav li {
+                margin: 0 0.7rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Eye styling and animation */
+        .eye-outer {
+            fill: #222;
+        }
+        
+        .eye-white {
+            fill: white;
+        }
+        
+        .eye-iris {
+            fill: #222;
+        }
+        
+        .eye-pupil {
+            fill: white;
+            transform-origin: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .eye-pupil-center {
+            fill: black;
+        }
+        
+        .eye-reflection {
+            fill: white;
+            opacity: 0.7;
+        }
+        
+        .eye-lid {
+            fill: #222;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .eye-lashes line {
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+        
+        .eye-svg:hover .eye-pupil {
+            transform: scale(1.2);
+        }
+        
+        @keyframes blink {
+            0%, 95%, 100% { opacity: 0; }
+            97%, 98% { opacity: 1; }
+        }
+        
+        .eye-svg:hover .eye-lid {
+            animation: blink 2.5s infinite;
+        }
+        
+        /* Animation for page load */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        /* Floating animation for eye */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="home" class="fade-in">
+        <div class="logo floating" id="eye-logo">
+            <svg class="eye-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Eye socket/outline -->
+                <path class="eye-outer" d="M50,150 C50,90 125,40 150,40 C175,40 250,90 250,150 C250,210 175,260 150,260 C125,260 50,210 50,150 Z" />
+                
+                <!-- Eye white -->
+                <ellipse class="eye-white" cx="150" cy="150" rx="85" ry="55" />
+                
+                <!-- Iris -->
+                <circle class="eye-iris" cx="150" cy="150" r="40" />
+                
+                <!-- Pupil -->
+                <circle class="eye-pupil" cx="150" cy="150" r="15" />
+                
+                <!-- Pupil center -->
+                <circle class="eye-pupil-center" cx="150" cy="150" r="7" />
+                
+                <!-- Light reflection 1 -->
+                <circle class="eye-reflection" cx="165" cy="135" r="8" />
+                
+                <!-- Light reflection 2 -->
+                <circle class="eye-reflection" cx="140" cy="145" r="4" />
+                
+                <!-- Eyelid top (for blinking) -->
+                <path class="eye-lid" d="M50,150 Q150,30 250,150 V80 Q150,10 50,80 Z" />
+                
+                <!-- Eyelid bottom (for blinking) -->
+                <path class="eye-lid" d="M50,150 Q150,270 250,150 V220 Q150,290 50,220 Z" />
+                
+                <!-- Eyelashes -->
+                <g class="eye-lashes">
+                    <path d="M150,130 L150,110 M140,140 L125,125 M160,140 L175,125 M140,160 L125,175 M160,160 L175,175" stroke="white" stroke-width="3" />
+                </g>
+            </svg>
+        </div>
+        <h1>I WAS BLIND BUT NOW I SEE</h1>
+        <p class="tagline">Transforming ideas into digital reality through code. A developer's journey from confusion to clarity.</p>
+        <div>
+            <a href="#projects" class="btn">View My Work</a>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+    </header>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Projects</h2>
+            <div class="projects">
+                <div class="project-card fade-in">
+                    <div class="project-img">Project 1</div>
+                    <div class="project-info">
+                        <h3 class="project-title">Insight Engine</h3>
+                        <p class="project-desc">A data visualization platform that helps users gain insights from complex datasets, making the invisible visible.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">D3.js</span>
+                            <span class="tech-tag">Node.js</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-img">Project 2</div>
+                    <div class="project-info">
+                        <h3 class="project-title">Vision API</h3>
+                        <p class="project-desc">An API service that processes and analyzes images using computer vision algorithms, revealing patterns humans might miss.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">TensorFlow</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in">
+                    <div class="project-img">Project 3</div>
+                    <div class="project-info">
+                        <h3 class="project-title">Clarity Dashboard</h3>
+                        <p class="project-desc">A real-time monitoring dashboard that brings clarity to system performance and user behavior.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">Socket.io</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title fade-in">Skills</h2>
+            <div class="skills">
+                <div class="skill-category fade-in">
+                    <h3>Frontend</h3>
+                    <ul class="skill-list">
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React</li>
+                        <li>Vue.js</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category fade-in">
+                    <h3>Backend</h3>
+                    <ul class="skill-list">
+                        <li>Node.js</li>
+                        <li>Express</li>
+                        <li>Python</li>
+                        <li>Django</li>
+                        <li>RESTful APIs</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category fade-in">
+                    <h3>Database</h3>
+                    <ul class="skill-list">
+                        <li>MongoDB</li>
+                        <li>PostgreSQL</li>
+                        <li>MySQL</li>
+                        <li>Firebase</li>
+                    </ul>
+                </div>
+                
+                <div class="skill-category fade-in">
+                    <h3>DevOps & Tools</h3>
+                    <ul class="skill-list">
+                        <li>Git & GitHub</li>
+                        <li>Docker</li>
+                        <li>AWS</li>
+                        <li>CI/CD Pipelines</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="about-img fade-in">
+                <div class="eye-container floating">
+                    <svg class="eye-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Eye socket/outline -->
+                        <path class="eye-outer" d="M50,150 C50,90 125,40 150,40 C175,40 250,90 250,150 C250,210 175,260 150,260 C125,260 50,210 50,150 Z" />
+                        
+                        <!-- Eye white -->
+                        <ellipse class="eye-white" cx="150" cy="150" rx="85" ry="55" />
+                        
+                        <!-- Iris -->
+                        <circle class="eye-iris" cx="150" cy="150" r="40" />
+                        
+                        <!-- Pupil -->
+                        <circle class="eye-pupil" cx="150" cy="150" r="15" />
+                        
+                        <!-- Pupil center -->
+                        <circle class="eye-pupil-center" cx="150" cy="150" r="7" />
+                        
+                        <!-- Light reflection 1 -->
+                        <circle class="eye-reflection" cx="165" cy="135" r="8" />
+                        
+                        <!-- Light reflection 2 -->
+                        <circle class="eye-reflection" cx="140" cy="145" r="4" />
+                        
+                        <!-- Eyelid top (for blinking) -->
+                        <path class="eye-lid" d="M50,150 Q150,30 250,150 V80 Q150,10 50,80 Z" />
+                        
+                        <!-- Eyelid bottom (for blinking) -->
+                        <path class="eye-lid" d="M50,150 Q150,270 250,150 V220 Q150,290 50,220 Z" />
+                        
+                        <!-- Eyelashes -->
+                        <g class="eye-lashes">
+                            <path d="M150,130 L150,110 M140,140 L125,125 M160,140 L175,125 M140,160 L125,175 M160,160 L175,175" stroke="white" stroke-width="3" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="about-content fade-in">
+                <h2>My Journey</h2>
+                <p>I was once blind to the possibilities of technology, viewing code as an impenetrable mystery. But through persistence and curiosity, my vision cleared. Now I see patterns where others see complexity, and solutions where others see problems.</p>
+                <p>As a developer, I'm passionate about creating digital experiences that help others see more clearly too. Whether it's visualizing complex data, streamlining user interfaces, or architecting efficient backends, my mission is to bring clarity through code.</p>
+                <p>The "I Was Blind But Now I See" philosophy guides my approach to projects. It reminds me that every challenge is an opportunity to gain new insight, and that the most valuable solutions are those that illuminate what was previously hidden.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Let's Connect</h2>
+            <div class="contact-form fade-in" style="max-width: 600px; margin: 0 auto;">
+                <form>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Name</label>
+                        <input type="text" id="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email</label>
+                        <input type="email" id="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Message</label>
+                        <textarea id="message" rows="5" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="border: none; cursor: pointer;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" aria-label="GitHub">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0C5.374 0 0 5.373 0 12C0 17.302 3.438 21.8 8.207 23.387C8.806 23.498 9 23.126 9 22.81V20.576C5.662 21.302 4.967 19.16 4.967 19.16C4.421 17.773 3.634 17.404 3.634 17.404C2.545 16.659 3.717 16.675 3.717 16.675C4.922 16.759 5.556 17.912 5.556 17.912C6.626 19.746 8.363 19.216 9.048 18.909C9.155 18.134 9.466 17.604 9.81 17.305C7.145 17 4.343 15.971 4.343 11.374C4.343 10.063 4.812 8.993 5.579 8.153C5.455 7.85 5.044 6.629 5.696 4.977C5.696 4.977 6.704 4.655 8.997 6.207C9.954 5.941 10.98 5.808 12 5.803C13.02 5.808 14.047 5.941 15.006 6.207C17.297 4.655 18.303 4.977 18.303 4.977C18.956 6.63 18.545 7.851 18.421 8.153C19.191 8.993 19.656 10.064 19.656 11.374C19.656 15.983 16.849 16.998 14.177 17.295C14.607 17.667 15 18.397 15 19.517V22.81C15 23.129 15.192 23.504 15.801 23.386C20.566 21.797 24 17.3 24 12C24 5.373 18.627 0 12 0Z" fill="white"/>
+                </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.447 20.452H16.893V14.883C16.893 13.555 16.866 11.846 15.041 11.846C13.188 11.846 12.905 13.291 12.905 14.785V20.452H9.351V9H12.765V10.561H12.811C13.288 9.661 14.448 8.711 16.181 8.711C19.782 8.711 20.448 11.081 20.448 14.166V20.452H20.447ZM5.337 7.433C4.193 7.433 3.274 6.507 3.274 5.368C3.274 4.23 4.194 3.305 5.337 3.305C6.477 3.305 7.401 4.23 7.401 5.368C7.401 6.507 6.476 7.433 5.337 7.433ZM7.119 20.452H3.555V9H7.119V20.452ZM22.225 0H1.771C0.792 0 0 0.774 0 1.729V22.271C0 23.227 0.792 24 1.771 24H22.222C23.2 24 24 23.227 24 22.271V1.729C24 0.774 23.2 0 22.222 0H22.225Z" fill="white"/>
+                </svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" fill="white"/>
+                </svg>
+            </a>
+        </div>
+        <p class="copyright">© 2025 Developer Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add fade-in animation to elements as they enter the viewport
+        document.addEventListener("DOMContentLoaded", function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        fadeInObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            fadeElements.forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                fadeInObserver.observe(element);
+            });
+            
+            // Eye pupil tracking effect
+            const eyes = document.querySelectorAll('.eye-svg');
+            
+            document.addEventListener('mousemove', (e) => {
+                eyes.forEach(eye => {
+                    const eyeRect = eye.getBoundingClientRect();
+                    const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                    const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+                    
+                    // Calculate distance from eye center to cursor
+                    const dx = e.clientX - eyeCenterX;
+                    const dy = e.clientY - eyeCenterY;
+                    
+                    // Normalize the distance to get values between -1 and 1
+                    const maxDistance = 150;
+                    let normalizedX = dx / maxDistance;
+                    let normalizedY = dy / maxDistance;
+                    
+                    // Clamp values to stay within the eye
+                    const maxMove = 10; // maximum pixels the pupil can move
+                    const pupilX = Math.min(maxMove, Math.max(-maxMove, normalizedX * maxMove));
+                    const pupilY = Math.min(maxMove, Math.max(-maxMove, normalizedY * maxMove));
+                    
+                    // Apply the transform to the pupil and pupil center
+                    const pupil = eye.querySelector('.eye-pupil');
+                    const pupilCenter = eye.querySelector('.eye-pupil-center');
+                    if (pupil && pupilCenter) {
+                        pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+                        pupilCenter.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+                    }
+                });
+            });
+            
+            // Random eye blinking
+            function randomBlink() {
+                const eyes = document.querySelectorAll('.eye-svg');
+                eyes.forEach(eye => {
+                    const eyelids = eye.querySelectorAll('.eye-lid');
+                    eyelids.forEach(lid => {
+                        lid.style.opacity = "1";
+                        setTimeout(() => {
+                            lid.style.opacity = "0";
+                        }, 150);
+                    });
+                });
+                
+                // Schedule next blink between 3 and 8 seconds
+                const nextBlink = Math.random() * 5000 + 3000;
+                setTimeout(randomBlink, nextBlink);
+            }
+            
+            // Start random blinking
+            setTimeout(randomBlink, 3000);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
